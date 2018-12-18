@@ -34,7 +34,7 @@ var quotes = [
   },
   {
     quote:"Be who you are and say what you feel, because those who mind don't matter, and those who matter don't mind.",
-    source:"Bernard M, Baruch",
+    source:"Bernard M. Baruch",
     citation:"goodreads"
   },
   {
@@ -49,9 +49,7 @@ var quotes = [
     year:2002,
     citation:"Late Show with David Letterman"
   }
-]
-var randomQuote;
-var quoteString;
+];
 
 /***
   Create the `getRandomQuote` function to:
@@ -64,7 +62,15 @@ function getRandomQuote(){
   return quotes[Math.floor(Math.random() * quotes.length)];
 }
 
+/***
+  returns a string with a random rgb
+***/
 
+function getRandomColor(){
+  var randomColor = "rgb(" + Math.floor(Math.random()*255) + "," + Math.floor(Math.random()*255) + "," + Math.floor(Math.random()*255) + ")";
+
+  return randomColor;
+}
 
 
 /***
@@ -78,17 +84,38 @@ function getRandomQuote(){
 ***/
 
 function printQuote(){
-  quoteString = "";
-  randomQuote = getRandomQuote();
+  var quoteString = "";
+  var randomQuote = getRandomQuote();
+
+  //test if the random quote is the same as the current quote, if so get another random quote
+  while(randomQuote.quote === document.getElementsByClassName("quote")[0].innerHTML){
+    randomQuote = getRandomQuote();
+  }
+
+
+
   quoteString = "<p class=\"quote\">" + randomQuote.quote + "</p>" + "<p class=\"source\">" + randomQuote.source;
+  //make sure property is present before trying to add it to the string
   if(randomQuote.hasOwnProperty('citation')){
     quoteString += "<span class=\"citation\">" + randomQuote.citation + "</span>";
   }
+  //make sure property is present before trying to add it to the string
   if(randomQuote.hasOwnProperty('year')){
     quoteString += "<span class=\"year\">" + randomQuote.year;
   }
   quoteString += "</p>";
+  //add the quote and its properties to the DOM
   document.getElementById('quote-box').innerHTML = quoteString;
+  //change the color of the background and the button
+  changeColor();
+}
+
+//color change func
+function changeColor(){
+  var randomColor = getRandomColor()
+  //change colour, using same colour for body and button for asthetic purposes
+  document.body.style.background = randomColor;
+  document.getElementById("loadQuote").style.background = randomColor;
 }
 
 
@@ -100,6 +127,11 @@ function printQuote(){
 ***/
 
 document.getElementById('loadQuote').addEventListener("click", printQuote, false);
+
+
+//quote change timed func
+setInterval(function(){printQuote()}, 20000);
+
 
 
 // Remember to delete the comments that came with this file, and replace them with your own code comments.
