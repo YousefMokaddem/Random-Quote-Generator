@@ -21,16 +21,19 @@ var quotes = [
     quote:"Every great developer you know got there by solving problems they were unqualified to solve until they actually did it.",
     source:"Patrick McKenzie",
     year:2016,
-    citation:"Twitter"
+    citation:"Twitter",
+    category:"Motivation"
   },
   {
     quote:"A friend is someone who gives you total freedom to be yourself.",
     source:"Jim Morrison",
+    category:"Friendship"
   },
   {
     quote:"Don't cry because it's over, smile because it happened.",
     source:"Dr. Seuss",
-    citation:"goodreads"
+    citation:"goodreads",
+    category:"Happiness"
   },
   {
     quote:"Be who you are and say what you feel, because those who mind don't matter, and those who matter don't mind.",
@@ -101,7 +104,10 @@ function printQuote(){
   }
   //make sure property is present before trying to add it to the string
   if(randomQuote.hasOwnProperty('year')){
-    quoteString += "<span class=\"year\">" + randomQuote.year;
+    quoteString += "<span class=\"year\">" + randomQuote.year + "</span>";
+  }
+  if(randomQuote.hasOwnProperty('category')){
+    quoteString += "<span class=\"category\">, " + randomQuote.category + "</span>";
   }
   quoteString += "</p>";
   //add the quote and its properties to the DOM
